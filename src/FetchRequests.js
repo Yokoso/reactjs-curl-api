@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { makeStyles } from '@material-ui/core';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
@@ -14,7 +14,7 @@ const useStyles = makeStyles({
 
 export default function FetchRequests() {
     const [data, setData] = useState([]);
-    const [sendRequest, setSendRequest] = useState(false);
+    const [sendRequest, setSendRequest] = useState(true);
 
     const classes = useStyles();
 
@@ -39,19 +39,24 @@ export default function FetchRequests() {
 
     return (
         <Container>
-            <Button onClick={() => setSendRequest(true)}
-                title="testButton" 
-                variant="contained"  
-                className={classes.btn}
-            >Get Data</Button>
-            <br />
-            <Grid container>
-                {data.map(data => (
-                    <Grid item /* key={data} */ xs={12} md={6} lg={4}>
-                        <Paper style={{ padding: 10 }}>{data}</Paper>
+            {!sendRequest
+                ?   <Button onClick={() => {
+                    setSendRequest(true); 
+                    console.log(sendRequest)
+                    }
+                }
+                        title="testButton" 
+                        variant="contained"  
+                        className={classes.btn}
+                    >Get Data</Button>
+                :   <Grid container>
+                        {data.map(data => (
+                            <Grid item /* key={data} */ xs={12} md={6} lg={4}>
+                                <Paper style={{ padding: 10 }}>{data}</Paper>
+                            </Grid>
+                        ))}
                     </Grid>
-                ))}
-            </Grid>
+            }
         </Container>
     );
 }

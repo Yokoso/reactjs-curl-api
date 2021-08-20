@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-
-import { makeUpperCase, firstUpperCase } from '../../testFunctions';
 
 
 const useStyles = makeStyles({
@@ -30,17 +28,29 @@ const useStyles = makeStyles({
 
 export default function Header() {
     const classes = useStyles()
+    const [navData] = useState(
+        [
+            {title: "Sportwee DEV", link: "#", id: 1}, 
+            {title: "O nas", link: "#", id: 2}, 
+            {title: "Pomoc", link: "#", id: 3}, 
+            {title: "LOG IN", link: "#", id: 4}, 
+            {title: "SIGN UP", link: "#", id: 5}
+        ]
+    );
 
     return (
         <header className={classes.header} >
             <nav>
                 <Grid container title="testHeader">
-                    <li className={classes.linksLi}><a href="#" className={classes.linksA}>{firstUpperCase("sportwee")} 
-                        <span className={classes.secondaryColor}>{makeUpperCase("dev")}</span></a></li>
-                    <li className={classes.linksLi}><a href="#" className={classes.linksA}>{firstUpperCase("o nas")}</a></li>
-                    <li className={classes.linksLi}><a href="#" className={classes.linksA}>{firstUpperCase("pomoc")}</a></li>
-                    <li className={classes.linksLi}><a href="#" className={classes.linksA}>{makeUpperCase("log in")}</a></li>
-                    <li className={classes.linksLi}><a href="#" className={classes.linksA}>{makeUpperCase("sign up")}</a></li>
+
+                        {navData.map(data => (
+                            <Grid item key={data.id}>
+                                <li className={classes.linksLi}><a href={data.link}className={classes.linksA}>{data.title}</a></li>
+                                {console.log(data[data])}
+                            </Grid>
+                        ))}
+
+                    
                 </Grid>
             </nav>
         </header>
